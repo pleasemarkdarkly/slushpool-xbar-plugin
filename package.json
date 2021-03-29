@@ -1,0 +1,15 @@
+{
+  "name": "slushpool",
+  "version": "1.0.0",
+  "description": "Xbar (formerly known as Bitbar) Plugin to monitor Slushpool mining account. The sample API key is read-only and likely may not work so be sure to create your own from your Slushpool account. This Plugin take advantage of the [Slushpool APIs](https://help.slushpool.com/en/support/solutions/articles/77000433512-api-configuration-guide) to provide information about Pool, User Profile, or Worker Stats. Instruction on how to generate your Access Key is provided in the aforementioned guide.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bitbar": "^1.3.1"
+  }
+}
