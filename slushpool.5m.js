@@ -3,24 +3,20 @@
 /*
 # Slushpool Monitoring Xbar Plugin
 #
-# < xbar.title > Slushpool User Account Monitor Plugin </xbar.title >
+# < xbar.title > Slushpool Profile, Account, Worker Plugin </xbar.title >
 # < xbar.version > v1.0</xbar.version >
 # < xbar.author >Mark Phillips</xbar.author >
 # < xbar.author.github >pleasemarkdarkly </xbar.author.github >
 # < xbar.desc > Displays Slushpool Account/Worker Stats </xbar.desc >
-# < xbar.image > https://github.com/pleasemarkdarkly/slushpool-xbar-plugin/images/plugin.jpg </xbar.image>
-# < xbar.dependencies > bash </xbar.dependencies >
-# < xbar.abouturl > https://github.com/pleasemarkdarkly/slushpool-xbar-plugin/Readme.md </xbar.abouturl>
+# < xbar.image > https://github.com/pleasemarkdarkly/slushpool-xbar-plugin/blob/main/images/slushpool-xbar-plugin.png </xbar.image>
+# < xbar.dependencies > node </xbar.dependencies >
+# < xbar.abouturl > https://github.com/pleasemarkdarkly/slushpool-xbar-plugin/ </xbar.abouturl>
 
-# Variables become preferences in the app:
-#
-# < xbar.var > string(VAR_SLUSHPOOL_API_KEY=""): API key to get access to remote data from slushpool.</xbar.var >
-# < xbar.var > boolean(VAR_VERBOSE = true): Whether to be verbose or not.</xbar.var >
-# < xbar.var > list(VAR_STYLE = "normal"): Which style to use. [small, normal, big]</xbar.var >
+  This is an Xbar/Bitbar macOS menu plugin which provided with a SLUSHPOOL API_KEY with at least ACCESS READ-ONLY will provide your hash rate statistic, mining proceeds unconfirmed, confirmed, expected proceeds and details about your workers including OK, OFF, and disconnectd. Additional information regarding your participation pool is provided but specifically not used in this plugin however it would be trival to do so. 
 
-* I understand the view key is provided, this is to show the plugin works and the permissions for this key example are read-only.
-* Removed the dependancy to bitbar node module to avoid node related issues.
+  Apparently using node.js as the scripting language for Xbar is somewhat touchy, so I went with the most vanilla inplementation and foregoing the npm package of bitbar. Additionally, I have left a working READ-ONLY key of a handful of workers as to provide a better experience of someone seeking to use this plugin before replacing or modifying information with their own. 
 
+  Obviously, there is no support, or interest to ever touching this script again. But you are welcome to do whatever you want with it. 
 */
 
 const https = require('https');
@@ -31,10 +27,10 @@ const SLUSHPOOL_MINING_ICON = `⛏️`;
 const BITCOIN_ICON = 'iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAQAAABLCVATAAAACXBIWXMAABYlAAAWJQFJUiTwAAABY0lEQVRIx2P4z0AdyEBzg1DAdIYfQJgCZHmCWdsYMAFRBs0BC2UAWT5g1p6hbZAggwIcrgALVQNZSWDWAQY24g3qwRtJ/xgeMqxkCGJgotQgGLzAoEUdg/4zvGQQIxzYLAyODF/gQv0MlgwWDK4MOQxbgV5DKG0nLtZ2wIUykII2EMmoU8QZtAWrQQwMB+HiDygzaDNc/CQlBskwfIKLN5JrkAxDFsMTuOh9BiFSDXoHDI2HDB9RlJ1kECc2r20hkI5OMXhQxyAQzCTNoDJgaAgAvaLLEMkwn+EbkuLvDBLkR78yUoD/Z0gn3yAGhnwk5V2UGBRGLYNmICkvIGzQLqwG8TA0oJQAVvgMymcoYehg+AUXWgoM0kygWC/DbpQ4+89wjYERt0FiRNeNX4GlFJ505EykMacZDPGn7HwCBnxiOMcwjcGJcOEvzqADh2vBQk1AVhaYdZCBc7TKpqJBA9ZiAwDMH49EXcmY2QAAAABJRU5ErkJggg=='
 
 // due to the error prone nature of the above path, dependancies, etc, edit script directly vs. .env
-const VAR_SLUSHPOOL_API_KEY = 'Zm1oK8hGaDExOBaE';
-let slushpool_api_token = VAR_SLUSHPOOL_API_KEY;
+const VAR_SLUSHPOOL_API_KEY = 'Zm1oK8hGaDExOBaE'; // create your own SLUSHPOOL API KEY https://help.slushpool.com/en/support/solutions/articles/77000433512-api-configuration-guide
+let slushpool_api_token = VAR_SLUSHPOOL_API_KEY;  // left over for when I had logic to pull from various locations 
 
-let BTC_EXISTING_BALANCE = 0.78711908;
+let BTC_EXISTING_BALANCE = .78711908; // previously confirmed rewards or whatever you want, example BTC balance
 let USD_EXISTING_BTC_BALANCE = 0;
 
 const numberWithCommas = (x) => {
