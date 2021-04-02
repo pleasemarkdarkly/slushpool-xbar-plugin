@@ -1,22 +1,16 @@
 # Slushpool [Xbar](https://github.com/matryer/xbar) Plugin
-Xbar (formerly known as Bitbar) Plugin to monitor Slushpool mining account. The sample API key is read-only and likely may not work so be sure to create your own from your Slushpool account. This Plugin take advantage of the [Slushpool APIs](https://help.slushpool.com/en/support/solutions/articles/77000433512-api-configuration-guide) to provide information about Pool, User Profile, or Worker Stats. Instruction on how to generate your Access Key is provided in the aforementioned guide.
+Xbar (formerly known as Bitbar) Plugin to monitor your Slushpool mining account. The included Slushpool API key is a `LIMITED READ-ONLY` and may not work at the time you are reading this, so be sure to create your own from your own Slushpool account and replace within the script `VAR_SLUSHPOOL_API_KEY`. The idea of the plugin is pretty obvious, if you mine casually or professionally, you may have sophisticated software to monitor, alert, or inform you of your progress. Slushpool created its [Slushpool APIs](https://help.slushpool.com/en/support/solutions/articles/77000433512-api-configuration-guide) to provide users information about Pool, User Profile, or Worker Stats. Instruction on how to generate your Access Key is provided in the aforementioned guide. This Bitbar, err Xbar plugin, provides macOS menu bar quick view access to the status of your total hash rate, OK workers, details about your OK workers and your confirmed/unconfirmed/expected rewards in BTC and USD. If one of your workers is down, this will be presented to you in the menubar. Of course, you can take this script and extend it to send Pushover events or other such notification schemes in the event your worker is acting up. 
 
-### ⛏️ Rough idea of output
-  * Pending mining payments: (confirmed_reward + unconfirmed_reward)
-  * Balance in USD: (Pending payments + any additional balance)
-  * -separator-
-  * hash_rate (5m): n (hash_rate_unit)
-  * hash_rate (60m): n (hash_rate_unit)
-  * hash_rate (24/h): n (hash_rate_unit)
-  * -separator-
-  * ok-workers
-  * -separator-
-  * dis-workers
-  * -separator-
-  * off-workers
+I was surprised that something like this didn't exist. Now it does, the slowest and most painful way of watching your workers earn $50. You are welcome. Slushpool Xbar plugin looks like this, at least, right now on my machine...
 
-### Example API Key
-The plugin requires an environment variable VAR_SLUSHPOOL_API_KEY, the example read-only key `Zm1oK8hGaDExOBaE` is provided as an example, however as previously mentioned likely has been disabled.
+![Slushpool Xbar Plugin Screenshot](./images/slushpool-xbar-plugin.png)
+
+_I don't have a half million in BTC, obviously this is sample data._
+### Slushpool API Key with LIMITED READ-ONLY permissions
+~~The plugin requires an environment variable VAR_SLUSHPOOL_API_KEY, the example read-only key `Zm1oK8hGaDExOBaE` is provided as an example, however as previously mentioned likely has been disabled.~~ As stated previously, Slushpool API link to generate an access key and replace the scripts `SLUSHPOOL_API_KEY` with your own. Given the already buggy/error-prone use of Javascript with X-bar, I left out anything which would require a dependency including the npm module `bitbar` and dot.env for the API KEY, just be sure to select in Access Profiles `LIMITED READ-ONLY.
+
+### Features
+While the API access provides you with endpoints described below, I access `profile` and `worker` you may want to access others, go for it. Better and more reliable information is at the aforementioned Slushpool URL but while I wrote the plugin, the below served as notes for me, so I left them here. The file `[slushpool.js](./slushpool-api.js) was also used as sort of a test structure file. The other file conforming to the Xbar timing format is what I used/added to the plug-in repo.
 
 ### Pool Stats API
 `https://slushpool.com/stats/json/[coin]/`
